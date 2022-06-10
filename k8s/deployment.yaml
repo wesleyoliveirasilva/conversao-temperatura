@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: convtemperatura
+spec:
+  selector:
+    matchLabels:
+      app: convtemperatura
+  template:
+    metadata:
+      labels:
+        app: convtemperatura
+    spec:
+      containers:
+        - name: convtemperatura
+          image: wesleyoliveirasilva/conversao-temperatura:v1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: convtemp
+spec:
+  selector:
+    app: convtemperatura
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30000
+  type: NodePort
